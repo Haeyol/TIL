@@ -455,7 +455,7 @@ const submitHandler = (event) => {
       date: new Date(enteredDate)
     }
 
-    props.onSaveExpenseData();
+    props.onSaveExpenseData(expenseData);
     ~~~
 
   }
