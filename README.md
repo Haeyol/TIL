@@ -462,7 +462,7 @@ const submitHandler = (event) => {
 ~~~
 }
 ```
-
+- 결과적으로 자식 컴포넌트인 ExpenseForm에서 부모 컴포너트로 함수onSaveExpenseData를 통해 데이터를 건네주게 된다.
 
 
 
