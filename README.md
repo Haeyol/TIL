@@ -424,7 +424,44 @@ const submitHandler = (event) => {
 ```
 - 폼으로 만들었을때 유용하다.
 
+## 자식-부모 컴퍼넌트 통신(상향식)
+- 하위 컴포넌트에 props로 함수의 포인터를 건네준다. 그 하위 컴포넌트에서 넘겨받은 props의 함수를 호출한다.
+```
+부모
+const saveExpenseDataHandler = (enterdExpenseData) => {
+    const expenseData = {
+      ...enterdExpenseData,
+      id: Math.random().toString()
+    }
+    console.log(expenseData)
+  }
 
+return (
+    <div>
+      <ExpenseForm onSaveExpenseData={saveExpenseDataHandler}/>
+    </div>
+  );
+```
+```
+자식
+const ExpenseForm = (props) => {
+~~~
+
+const submitHandler = (event) => {
+    event.preventDefault();
+    const expenseData = {
+      title:enteredTitle,
+      amount:enteredAmount,
+      date: new Date(enteredDate)
+    }
+
+    props.onSaveExpenseData();
+    ~~~
+
+  }
+~~~
+}
+```
 
 
 
