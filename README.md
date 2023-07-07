@@ -379,7 +379,50 @@ console.log(months);
 - 컴포넌트별 인스턴스를 기반으로 해서 독립적인 state를 갖는다. 그러므로 한 컴포넌트A를 여러번 사용해도 그 중 하나(A-1)에서 state가 변한다 할지라도 나머지(A-2,A-3...) 컴포넌트에는 영향이 없다.
 
 
+# 07/07
 
+## 사용자 입력 리스닝
+- onChange를 통해 전달한 함수로 전달된 이벤트 객체의 value속성에 사용자 입력 값이 담겨있다.
+
+## 여러 state 사용
+- `const[~,~] = useState()`를 여러번 반복하는 대신
+```
+const [userInput, setUserInput] = useState({
+    enteredTitle:'',
+    enteredAmount:'',
+    enteredDate:''
+  })
+```
+이런식으로 state객체로 묶어서 사용할 수 있다. 값을 갱신할때는,
+```
+setUserInput({
+      ...userInput,
+      enteredTitle: event.target.value
+    })
+```
+스프레드 연산자(...)를 사용해 남은 값들을 보존시키고 갱신할 값을 갱신한다.
+
+## 이전 state에 의존하는 경우 state 업데이트
+- 항상 최신 상태의 스냅샷에서 작업하도록하는 안전한 방법.
+```
+setUserInput((prevState) => {
+      return {...prevState, enteredTitle: event.target.value}
+    })
+```
+
+## 양방향 바인딩
+- 입력한 값을 받을 뿐아니라 다시 새로운 값을 입력에 전달할수 있다.
+- 입력창에 입력을 완료한뒤 전송했을때 입력창을 다시 빈상태로 만들기 위해서 사용한다.
+- input 태그의 value값에 useState로 만든 변수를 넣는다. 폼태그에 set으로 state를 빈값으로 업데이트 한다. 그러면 value가 가진 변수가 빈값이 되면서 입력창이 비워진다.
+`<input type="text" value={enteredTitle} onChange={titleChangeHandler}></input>`
+```
+const submitHandler = (event) => {
+    event.preventDefault();
+   
+    setEnterdTitle('');
+  }
+```
+- 폼으로 만들었을때 유용하다.
 
 
 
