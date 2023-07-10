@@ -513,7 +513,88 @@ user.sayHi(); // John
 ## 심볼
 - '심볼(symbol)'은 유일한 식별자(unique identifier)를 만들고 싶을 때 사용. Symbol()을 사용하면 심볼값을 만들 수 있다.
 
+`let id = Symbol(); // id는 새로운 심볼이 됨`
+`let id = Symbol("id");  // 심볼 id에는 "id"라는 설명이 붙음`
 
+07/10
+
+## 원시값의 메서드
+- 자바스크립트는 원시값(문자열, 숫자 등)을 마치 객체처럼 다룰 수 있다. 원시값에도 객체에서처럼 메서드를 호출할 수 있다. 
+
+## toString(base)
+- `num.toString(base)` 메서드는 base진법으로 num을 표현한 후, 이를 문자형으로 변환해 반환한다.
+
+
+## 어림수 
+- Math.floor
+소수점 첫째 자리에서 내림(버림). 3.1은 3, -1.1은 -2가 됨
+Math.ceil
+소수점 첫째 자리에서 올림. 3.1은 4, -1.1은 -1이 됨
+Math.round
+소수점 첫째 자리에서 반올림. 3.1은 3, 3.6은 4, -1.1은 -1이 됨
+Math.trunc (IE에서는 지원하지 않음)
+소수부를 무시. 3.1은 3이 되고 -1.1은 -1이 됨
+
+
+## parseInt와 parseFloat
+- 두 함수는 불가능할 때까지 문자열에서 숫자를 ‘추출’한다. 숫자를 읽는 도중 오류가 발생하면 이미 수집된 숫자를 반환함. parseInt는 정수, parseFloat는 부동 소수점 숫자를 반환
+
+## `Math.random()`
+- 0과 1 사이의 난수를 반환합니다(1은 제외).
+
+##` Math.max(a, b, c...) / Math.min(a, b, c...)`
+- 인수 중 최대/최솟값을 반환
+
+## `Math.pow(n, power)`
+- n을 power번 거듭제곱한 값을 반환
+
+## 대·소문자 변경하기
+- 메서드 `toLowerCase()`와 `toUpperCase()`는 대문자를 소문자로, 소문자를 대문자로 변경(케이스 변경)
+
+## 부분 문자열 찾기
+
+-  `str.indexOf(substr, pos)`: 문자열 str의 pos에서부터 시작해, 부분 문자열 substr이 어디에 위치하는지를 찾아준다. 원하는 부분 문자열을 찾으면 위치를 반환하고 그렇지 않으면 -1을 반환한다.
+
+- 두 번째 매개변수 pos는 선택적으로 사용할 수 있는데, 이를 명시하면 검색이 해당 위치부터 시작됨.
+
+## includes, startsWith, endsWith
+- `str.includes(substr, pos)`는 str에 부분 문자열 substr이 있는지에 따라 true나 false를 반환.
+
+- 메서드 str.startsWith와 str.endsWith는 메서드 이름 그대로 문자열 str이 특정 문자열로 시작하는지(start with) 여부와 특정 문자열로 끝나는지(end with) 여부를 확인할 때 사용.
+
+## 부분 문자열 추출
+- `str.slice(start [, end])`
+문자열의 start부터 end까지(end는 미포함)를 반환
+
+- `str.substring(start [, end])`
+start와 end 사이에 있는 문자열을 반환.
+
+substring은 slice와 아주 유사하지만 start가 end보다 커도 괜찮다는 데 차이가 있다.
+
+- `str.substr(start [, length])`
+start에서부터 시작해 length 개의 글자를 반환
+
+
+## 배열 선언
+```
+아래 두 문법을 사용하면 빈 배열을 만들 수 있다.
+let arr = new Array();
+let arr = [];
+```
+
+## pop·push와 shift·unshift
+- 큐(queue)는 배열을 사용해 만들 수 있는 대표적인 자료구조로, 배열과 마찬가지로 순서가 있는 컬렉션을 저장하는 데 사용
+
+- push – 맨 끝에 요소를 추가.
+- pop – 배열 끝 요소를 제거하고, 제거한 요소를 반환.
+- shift – 제일 앞 요소를 꺼내 제거한 후 남아있는 요소들을 앞으로 밀어서 두 번째 요소가 첫 번째 요소가 됨. 제거한 요소를 반환
+- unshift – 배열 앞에 요소를 추가.
+
+- push와 pop은 빠르지만 shift와 unshift는 느리다. pop 메서드는 요소를 옮기지 않으므로 각 요소는 기존 인덱스를 그대로 유지한다. 배열 끝에 무언가를 해주는 메서드의 실행 속도가 빠른 이유.
+
+
+## ‘length’ 프로퍼티
+- 배열에 무언가 조작을 가하면 length 프로퍼티가 자동으로 갱신된다. length 프로퍼티는 배열 내 요소의 개수가 아니라 가장 큰 인덱스에 1을 더한 값이다.
 
 
 
