@@ -712,6 +712,30 @@ function f() {
   }
 }
 
+
+# 07/14
+
+
+- map을 이용해 컴포넌트를 동적으로 생성해 랜더링하고 새 데이터를 배열에 넣어 컴포넌트를 추가할때 리액트는 새로운 아이템이 어디에 추가되어야 하는지 알려줘야 한다.
+
+
+- key를 통해 리액트가 개별 아이템을 인식할수 있다
+```
+{props.items.map((expense) => (
+        <ExpenseItem
+          key={expense.id}
+          title={expense.title}
+          amount={expense.amount}
+          date={expense.date}
+        />
+      ))}
+```
+- `props.items.map((expense, index)`와 같이 index를 두번째 인자로 사용해 map에서 자동으로 인덱스를 관리하게 할수 있지만 버그를 발생시킬수 있어 권장하지 않는다.
+
+- key에는 고유식별자가 들어가며 어떤 숫자나 문자열도 고유식별자가 될 수 있다.
+
+- 즉 리스트인 아이템을 맵핑할때는 key를 추가해야한다. 그래야 효율적으로 html태그가 알맞는 위치에 생성된다.
+
 let g = f(); // g가 살아있는 동안엔 연관 렉시컬 환경도 메모리에 살아있음.
 
 g = null; // 도달할 수 없는 상태가 되었으므로 메모리에서 삭제됨.
