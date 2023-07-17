@@ -741,3 +741,161 @@ g = null; // 도달할 수 없는 상태가 되었으므로 메모리에서 삭�
 - 즉 리스트인 아이템을 맵핑할때는 key를 추가해야한다. 그래야 효율적으로 html태그가 알맞는 위치에 생성된다.
 
 #07/16
+
+## 오래된 var
+
+- var로 선언한 변수는 let으로 선언한 변수와 유사함. 대부분의 경우에 let을 var로, var를 let으로 바꿔도 큰 문제 없이 동작.
+
+- var로 선언한 변수의 스코프는 블록 기준으로 스코프가 생기지 않기 때문에 블록 밖에서 접근 가능하다.
+
+- 한 스코프에서 같은 변수를 let으로 두 번 선언하면 에러가 발생 하지만 var로 같은 변수를 여러 번 중복으로 선언할 수 있다. 그러나 이미 선언된 변수에 var를 사용하면 두 번째 선언문은 무시된다.
+
+- 함수 본문 내에서 var로 선언한 변수는 선언 위치와 상관없이 함수 본문이 시작되는 지점에서 정의된다.
+
+- 이렇게 변수가 끌어올려 지는 현상을 '호이스팅(hoisting)'이라고 부른다. var로 선언한 모든 변수는 함수의 최상위로 ‘끌어 올려지기(hoisted)’ 때문(hoist는 끌어올리다 라는 뜻)
+
+- 선언은 호이스팅 되지만 할당은 호이스팅 되지 않는다.
+
+
+## 전역 객체
+
+- 전역 객체를 사용하면 어디서나 사용 가능한 변수나 함수를 만들 수 있다.
+
+- 전역 객체엔 Array와 같은 내장 객체, window.innerHeight(뷰포트의 높이를 반환함)같은 브라우저 환경 전용 변수 등이 저장되어 있다
+
+- 이해하기 쉽고 요구사항 변경에 쉽게 대응할 수 있는 코드를 구현하려면, window.x처럼 전역 객체의 프로퍼티에 직접 접근하자.
+
+
+## 객체로서의 함수와 기명 함수 표현식
+
+- 함수의 자료형은 객체이다. 함수는 호출이 가능한(callable) '행동 객체’라고 이해하면 쉽다. 함수는 호출 할 수 있을 뿐만 아니라 객체처럼 함수에 프로퍼티를 추가·제거하거나 참조를 통해 전달할 수도 있다.
+
+## ‘name’ 프로퍼티
+
+- 함수 이름을 가져올 수 있고 익명함수라도 자동으로 이름이 할당된다. 객체메서드의 이름도 가져올수있다.
+```
+function sayHi() {
+  alert("Hi");
+}
+
+alert(sayHi.name); // sayHi
+```
+
+## ‘length’ 프로퍼티
+- 함수 매개변수의 개수를 반환한다.
+```
+function f1(a) {}
+function f2(a, b) {}
+function many(a, b, ...more) {}
+
+alert(f1.length); // 1
+alert(f2.length); // 2
+alert(many.length); // 2
+```
+- `...`을 이용한 나머지 매개변수는 포함하지 않는다.
+
+
+## new Function 문법
+- 함수 표현식과 함수 선언문 이외에 함수를 만들 수도 있는 방법
+```
+let sum = new Function('a', 'b', 'return a + b');
+
+alert( sum(1, 2) ); // 3
+```
+- new Function을 이용해 만든 함수의 [[Environment]]는 외부 렉시컬 환경이 아닌 전역 렉시컬 환경을 참조하므로 외부 변수를 사용할 수 없다. 단점 같아 보이는 특징이지만 에러를 예방해 준다는 관점에선 장점이다.
+
+
+## 호출 스케줄링
+- 일정 시간이 지난 후에 원하는 함수를 예약 실행(호출)할 수 있게 하는 것
+
+- setTimeout을 이용해 일정 시간이 지난 후에 함수를 실행하는 방법
+
+`let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...)`
+- func|code
+실행하고자 하는 코드로, 함수 또는 문자열 형태. 대개는 이 자리에 함수.
+- delay
+실행 전 대기 시간으로, 단위는 밀리초(millisecond, 1000밀리초 = 1초)이며 기본값은 0
+- arg1, arg2…
+함수에 전달할 인수들로, IE9 이하에선 지원하지 않는다.
+```
+function sayHi(who, phrase) {
+  alert( who + ' 님, ' + phrase );
+}
+
+setTimeout(sayHi, 1000, "홍길동", "안녕하세요."); // 홍길동 님, 안녕하세요.
+```
+
+## clearTimeout으로 스케줄링 취소하기
+- setTimeout을 호출하면 '타이머 식별자(timer identifier)'가 반환됩니다. 스케줄링을 취소하고 싶을 땐 이 식별자(아래 예시에서 timerId)를 사용하면 된다.
+```
+let timerId = setTimeout(...);
+clearTimeout(timerId);
+```
+
+- setInterval을 이용해 일정 시간 간격을 두고 함수를 실행하는 방법
+- setInterval 메서드는 setTimeout과 동일한 문법을 사용. 다만, setTimeout이 함수를 단 한 번만 실행하는 것과 달리 setInterval은 함수를 주기적으로 실행한다.
+```
+// 2초 간격으로 메시지를 보여줌
+let timerId = setInterval(() => alert('째깍'), 2000);
+
+// 5초 후에 정지
+setTimeout(() => { clearInterval(timerId); alert('정지'); }, 5000);
+```
+
+- 중첩 setTimeout을 사용하면 setInterval을 사용한 것보다 유연하게 코드를 작성할 수 있습니다. 여기에 더하여 지연 간격 보장이라는 장점도 있다.
+
+- 대기 시간이 0인 setTimeout(setTimeout(func, 0) 혹은 setTimeout(func))을 사용하면 ‘현재 스크립트의 실행이 완료된 후 가능한 한 빠르게’ 원하는 함수를 호출할 수 있다.
+
+- 지연 없이 중첩 setTimeout을 5회 이상 호출하거나 지연 없는 setInterval에서 호출이 5회 이상 이뤄지면, 4밀리초 이상의 지연 간격이 강제로 더해진다. 이는 브라우저에만 적용되는 사항이며, 하위 호환성을 위해 유지되고 있다.
+
+- 스케줄링 메서드를 사용할 땐 명시한 지연 간격이 보장되지 않을 수도 있다는 점에 유의.
+
+## bind
+- 모든 함수는 this를 수정하게 해주는 내장 메서드 bind를 제공한다.
+`let boundFunc = func.bind(context);`
+- func.bind(context)는 함수처럼 호출 가능한 '특수 객체(exotic object)'를 반환한다. 이 객체를 호출하면 this가 context로 고정된 함수 func가 반환됨.
+
+따라서 boundFunc를 호출하면 this가 고정된 func를 호출하는 것과 동일한 효과가 나타난다.
+
+- bind는 보통 객체 메서드의 this를 고정해 어딘가에 넘기고자 할 때 사용
+
+## 화살표 함수의 몇 가지 독특하고 유용한 기능
+- 화살표 함수에는 'this’가 없다. this가 없기 때문에 화살표 함수는 생성자 함수로 사용할 수 없다. 그러므로 new와 함께 호출할 수 없다.
+
+- 화살표 함수엔 'arguments’가 없다.
+
+
+# 07/17
+
+## 프로토타입 상속
+
+- 기존에 있는 기능을 가져와 확장해야 하는 경우 자바스크립트 언어의 고유 기능인 프로토타입 상속(prototypal inheritance) 을 이용하면 실현가능하다.
+
+## [[Prototype]]
+
+- 자바스크립트의 객체는 명세서에서 명명한 [[Prototype]]이라는 숨김 프로퍼티를 갖는다. 이 숨김 프로퍼티 값은 null이거나 다른 객체에 대한 참조가 되는데, 다른 객체를 참조하는 경우 참조 대상을 '프로토타입(prototype)'이라 부른다.
+
+
+- object에서 프로퍼티를 읽으려고 하는데 해당 프로퍼티가 없으면 자바스크립트는 자동으로 프로토타입에서 프로퍼티를 찾는다. 프로그래밍에선 이런 동작 방식을 '프로토타입 상속’이라 함.
+
+- 프로토타입은 프로퍼티를 읽을 때만 사용. 프로퍼티를 추가, 수정하거나 지우는 연산은 객체에 직접 해야 함.
+
+- this는 프로토타입에 영향을 받지 않는다. 메서드를 객체에서 호출했든 프로토타입에서 호출했든 상관없이 this는 언제나 `.` 앞에 있는 객체이다.
+
+- Object.create(proto, [descriptors]) – [[Prototype]]이 proto를 참조하는 빈 객체를 만듭니다. 이때 프로퍼티 설명자를 추가로 넘길 수 있습니다.
+Object.getPrototypeOf(obj) – obj의 [[Prototype]]을 반환합니다.
+Object.setPrototypeOf(obj, proto) – obj의 [[Prototype]]이 proto가 되도록 설정합니다.
+```
+let animal = {
+  eats: true
+};
+
+// 프로토타입이 animal인 새로운 객체를 생성합니다.
+let rabbit = Object.create(animal);
+
+alert(rabbit.eats); // true
+
+alert(Object.getPrototypeOf(rabbit) === animal); // true
+
+Object.setPrototypeOf(rabbit, {}); // rabbit의 프로토타입을 {}으로 바꿉니다.
+```
