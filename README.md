@@ -899,3 +899,46 @@ alert(Object.getPrototypeOf(rabbit) === animal); // true
 
 Object.setPrototypeOf(rabbit, {}); // rabbit의 프로토타입을 {}으로 바꿉니다.
 ```
+
+# 07/18
+
+## 클래스
+- 클래스는 객체 지향 프로그래밍에서 특정 객체를 생성하기 위해 변수와 메소드를 정의하는 일종의 틀로, 객체를 정의하기 위한 상태(멤버 변수)와 메서드(함수)로 구성된다.
+
+- 클래스는 다음과 같은 기본 문법을 사용해 만들 수 있다. 메서드 사이엔 쉼표가 없다.
+```
+class MyClass {
+  // 여러 메서드를 정의할 수 있음
+  constructor() { ... }
+  method1() { ... }
+  method2() { ... }
+  method3() { ... }
+  ...
+}
+```
+- 이렇게 클래스를 만들고, new MyClass()를 호출하면 내부에서 정의한 메서드가 들어 있는 객체가 생성된다. 객체의 기본 상태를 설정해주는 생성자 메서드 constructor()는 new에 의해 자동으로 호출되므로, 특별한 절차 없이 객체를 초기화 할 수 있다.
+
+- 함수처럼 클래스도 다른 표현식 내부에서 정의, 전달, 반환, 할당할 수 있다. 클래스 표현식에 이름을 붙이면, 이 이름은 오직 클래스 내부에서만 사용할 수 있다.
+
+- 객체처럼 클래스도 getter나 setter, 계산된 프로퍼티(computed property)를 지원한다.
+
+
+## 클래스 상속
+
+- 클래스 상속을 사용하면 클래스를 다른 클래스로 확장할 수 있다. 기존에 존재하던 기능을 토대로 새로운 기능을 만드는 것이 가능.
+
+## ‘extends’ 키워드
+
+- 클래스 Animal을 만든뒤 클래스 Rabbit을 만드려면 동물 관련 메서드가 담긴 Animal을 확장해서 만들어야 한다. 이렇게 하면 Rabbit도 Animal이 할 수 있는 ‘일반적인’ 동작을 수행할 수 있다.
+
+- 클래스 확장 문법 `class Child extends Parent`를 사용해 클래스를 확장
+```
+class Rabbit extends Animal {
+  hide() {
+    alert(`${this.name} 이/가 숨었습니다!`);
+  }
+}
+// Animal을 상속받는 class Rabbit
+
+let rabbit = new Rabbit("흰 토끼");
+```
