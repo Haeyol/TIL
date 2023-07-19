@@ -1018,3 +1018,59 @@ let rabbit = new Rabbit();
 alert( rabbit instanceof Rabbit ); // true
 ```
 - 클래스가 아닌 생성자 함수/Array 같은 내장 클래스에도 사용에도 사용가능.
+
+
+
+# 07/19
+
+
+- 리액트 jsx코드에서 중괄호 안에 조건문을 넣을때 삼항연산자를 사용하는 대신 &&를 이용하는 방법도 있다.
+```
+return(
+...
+{AAA.length  === 0 ? <p>zero</p> : <p>not zero</p>}
+// 위와 아래가 같음
+{filteredExpenses.length === 0 && <p>zero</p>}
+{filteredExpenses.length > 0 && <p>not zero</p>}
+```
+- 또는 아예 밖에서 jsf코드를 변수에 넣어서 조건문을 사용할 수 도 있다.
+```
+let zeroContent = <p>zero</p>
+
+  if (AAA.length > 0) {
+    zeroContent = <p>not zero</p>
+    ))
+  }
+
+return (
+{zeroContent}
+```
+
+## 리액트 인라인 스타일
+
+- 태그 안에 style={{}}을 통해 스타일링한다.
+`<input style={{borderColor: !isValid ? "red" : 'black' />`
+
+- 태그에 className을 붙일때 
+```
+<div className={`form-control ${!isValid ? 'invalid' : ''}`}>
+```
+이런식으로 isValid가 true인지 false인지에 따라 동적으로 'form-control' 스타일을 따를지 'form-control invalid'스타일을 따를지 정할 수 있다.
+
+## 템플릿 리터럴
+
+- 템플릿 리터럴은 내장된 표현식을 허용하는 문자열 리터럴로 이중 따옴표 나 작은 따옴표 대신 백틱(` `)을 이용한다.
+
+- 표현식을 삽입할수 있다.
+```
+var a = 5;
+var b = 10;
+console.log("Fifteen is " + (a + b) + " and\nnot " + (2 * a + b) + ".");
+// 위를 템플릿 리터럴 사용시
+console.log(`Fifteen is ${a + b} and
+not ${2 * a + b}.`);
+```
+
+## styled-component
+- styled-component로 설정한 스타일은 각각 고유한 클래스 이름을 갖기 때문에 다른 컴포넌트에 절대 영향을 주지 않는다.
+  
