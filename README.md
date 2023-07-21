@@ -1115,3 +1115,110 @@ try {
 }
 ```
 - finally라는 코드 절을 하나 더 가질 수 있다. catch를 제외하고 `try..finally`도 가능. 
+
+
+
+# 07/21
+
+- <label>은 input의 이름을 적는 태그. htmlFor(props)에 input의 아이디나 네임을 적어 인풋과 연결합니다.
+`<label htmlFor='username'>Username</label>`
+
+
+## promise
+
+- ```
+let promise = new Promise(function(resolve, reject) {
+  // executor (개발자가 제작하는 코드)
+});
+```
+- new Promise에 전달되는 함수는 executor(실행자, 실행 함수)라 부른다. executor는 new Promise가 만들어질 때 자동으로 실행된다.
+
+- executor의 인수 resolve와 reject는 자바스크립트에서 자체 제공하는 콜백으로 개발자는 resolve와 reject를 신경 쓰지 않고 executor 안 코드만 작성하면 된다.
+
+-  executor에선 처리 성공여부에 따라 인수로 넘겨준 콜백(resolve나 reject) 중 하나를 반드시 호출해야 한다.
+
+- resolve(value) — 일이 성공적으로 끝난 경우 그 결과를 나타내는 value와 함께 호출
+reject(error) — 에러 발생 시 에러 객체를 나타내는 error와 함께 호출
+
+## then
+- 프라미스에서 가장 중요하고 기본이 되는 메서드
+```
+promise.then(
+  function(result) { /* 결과(result)를 다룹니다 */ },
+  function(error) { /* 에러(error)를 다룹니다 */ }
+);
+```
+- .then의 첫 번째 인수는 프라미스가 이행되었을 때 실행되는 함수로, 실행 결과를 다룸.
+
+.then의 두 번째 인수는 프라미스가 거부되었을 때 실행되는 함수로, 에러를 다룸.
+
+## catch
+
+- .catch 는 프라미스에서 발생한 모든 에러를 다룬다. reject()가 호출되거나 에러가 던져지면 `.catch`에서 이를 처리한다. `.catch`는 에러를 처리하고 싶은 지점에 정확히 위치시켜야 한다.
+
+
+## 프라미스 API
+
+- Promise 클래스에는 5가지 정적 메서드가 있다.
+
+## Promise.all
+
+- `Promise.all`은 요소 전체가 프라미스인 배열(엄밀히 따지면 이터러블 객체이지만, 대개는 배열임)을 받고 새로운 프라미스를 반환.
+
+`let promise = Promise.all([...promises...]);`
+
+- 배열 안 프라미스가 모두 처리되면 새로운 프라미스가 이행되는데, 배열 안 프라미스의 결괏값을 담은 배열이 새로운 프라미스의 result가 된다.
+
+- 배열 result의 요소 순서는 Promise.all에 전달되는 프라미스 순서와 같다. 첫 번째 프라미스는 가장 늦게 이행되더라도 처리 결과는 배열의 첫 번째 요소에 저장된다.
+
+- 프라미스가 하나라도 거부되면(에러가 발생하면) Promise.all은 즉시 거부되고 배열에 저장된 다른 프라미스의 결과는 완전히 무시된다. 이행된 프라미스의 결과도 무시됨.
+
+
+## Promise.allSettled
+
+- 모든 프라미스가 처리될 때까지 기다린다. 반환되는 배열은 
+응답이 성공할 경우 – {status:"fulfilled", value:result}
+에러가 발생한 경우 – {status:"rejected", reason:error}
+여러 요청 중 하나가 실패해도 다른 요청 결과는 여전히 필요할때 유용하다.
+
+## Promise.race
+
+- Promise.all과 비슷하다. 다만 가장 먼저 처리되는 프라미스의 결과(혹은 에러)를 반환한다.
+
+## Promise.resolve와 Promise.reject
+
+- Promise.resolve와 Promise.reject는 async/await 문법(뒤에서 다룸)이 생긴 후로 쓸모없어졌기 때문에 근래에는 거의 사용하지 않는다.
+
+- Promise.resolve(value) – 주어진 값을 사용해 이행 상태의 프라미스를 만듭니다.
+Promise.reject(error) – 주어진 에러를 사용해 거부 상태의 프라미스를 만듭니다.
+
+## async와 await
+ - async는 function 앞에 위치
+```
+async function f() {
+  return 1;
+}
+```
+function 앞에 async를 붙이면 해당 함수는 항상 프라미스를 반환한다.(프라미스가 아닌 것은 프라미스로 감싸 반환)
+
+
+- await는 async 함수 안에서만 동작
+```
+async function f() {
+
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("완료!"), 1000)
+  });
+
+  let result = await promise; // 프라미스가 이행될 때까지 기다림 (*)
+
+  alert(result); // "완료!"
+}
+
+f();
+```
+await는 말 그대로 프라미스가 처리될 때까지 함수 실행을 기다리게 만든다. 기다리는 동안엔 엔진이 다른 일(다른 스크립트를 실행, 이벤트 처리 등)을 할 수 있기 때문에, CPU 리소스가 낭비되지 않는다.
+
+- async 함수가 아닌데 await을 사용하면 문법 에러가 발생
+
+- 에러가 발생하면 await가 에러를 던지는데 try..catch를 사용해 잡을 수 있다.
