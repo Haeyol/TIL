@@ -1257,3 +1257,41 @@ export function sayHi(user) {
   alert(`Hello, ${user}!`);
 }
 ```
+
+
+# 07/23
+
+
+## Proxy
+
+-  특정 객체를 감싸 프로퍼티 읽기, 쓰기와 같은 `객체에 가해지는 작업을 중간에서 가로채는 객체`로, 가로채진 작업은 Proxy 자체에서 처리되기도 하고, 원래 객체가 처리하도록 그대로 전달되기도 한다.
+
+`let proxy = new Proxy(target, handler)`
+
+- target – 감싸게 될 객체로, 함수를 포함한 모든 객체가 가능.
+handler – 동작을 가로채는 메서드인 '트랩(trap)'이 담긴 객체로, 여기서 프락시를 설정(예시: get 트랩은 target의 프로퍼티를 읽을 때, set 트랩은 target의 프로퍼티를 쓸 때 활성화됨)
+
+- proxy에 작업이 가해지고, handler에 작업과 상응하는 트랩이 있으면 트랩이 실행되어 프락시가 이 작업을 처리한다. 트랩이 없으면 target에 작업이 직접 수행된다.
+
+
+## get 트랩
+
+- get메서드는 프로퍼티를 읽으려고 할 때 작동. 프로퍼티 읽기를 가로채려면 handler에 `get(target, property, receiver)` 메서드가 있어야 한다.
+
+## set 트랩
+
+- set 트랩은 프로퍼티에 값을 쓰려고 할 때 작동. `set(target, property, value, receiver)`
+
+## 내장 함수 eval
+
+- 문자열 형태의 코드를 실행. 잘사용되지 않음.
+```
+let value = eval('let i = 0; ++i');
+alert(value); // 1
+```
+- 외부 변수에 접근/변경 가능하다.
+
+
+## 커링 (Currying) 
+
+- 커링은 f(a, b, c)처럼 단일 호출로 처리하는 함수를 f(a)(b)(c)와 같이 각각의 인수가 호출 가능한 프로세스로 호출된 후 병합되도록 변환하는 것.
