@@ -1098,12 +1098,12 @@ try {
 - try..catch는 오직 런타임 에러에만 동작. 즉 try..catch는 실행 가능한(runnable) 코드에만 동작한다. 실행 가능한 코드는 유효한 자바스크립트 코드를 의미함.
 
 
-## ‘throw’ 연산자
+## 'throw' 연산자
 
 - throw 연산자는 에러를 생성한다. `throw <error object>`처럼 사용.
 
 
-## `try…catch…finally`
+## 'try…catch…finally'
 
 ```
 try {
@@ -1121,12 +1121,12 @@ try {
 # 07/21
 
 - <label>은 input의 이름을 적는 태그. htmlFor(props)에 input의 아이디나 네임을 적어 인풋과 연결합니다.
-`<label htmlFor='username'>Username</label>`
+- 예시: `<label htmlFor='username'>Username</label>`
 
 
 ## promise
 
-- ```
+```
 let promise = new Promise(function(resolve, reject) {
   // executor (개발자가 제작하는 코드)
 });
