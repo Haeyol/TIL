@@ -1323,3 +1323,18 @@ alert( +bigint ); // 에러
 ## 커링 (Currying) 
 
 - 커링은 f(a, b, c)처럼 단일 호출로 처리하는 함수를 f(a)(b)(c)와 같이 각각의 인수가 호출 가능한 프로세스로 호출된 후 병합되도록 변환하는 것.
+
+
+# 07/25
+
+## DOM 트리
+
+- DOM은 HTML을 태그 트리 구조로 표현한다. 모든 HTML 태그는 객체이다. 태그 하나가 감싸고 있는 ‘자식’ 태그는 중첩 태그(nested tag)라고 부르고 태그 내의 문자(text) 역시 객체이다. 즉 트리에 있는 노드는 모두 객체이다.
+
+- 기형적인 HTML을 만나면 브라우저는 DOM 생성과정에서 HTML을 자동으로 교정한다. 주석도 노드가 된다. HTML 내의 모든 것은 DOM을 구성한다.
+
+- DOM에 수행하는 모든 연산은 document 객체에서 시작한다. document 객체는 DOM에 접근하기 위한 '진입점’으로 진입점을 통과하면 어떤 노드에도 접근할 수 있다.
+
+- DOM 트리 상단의 노드들은 document가 제공하는 프로퍼티를 사용해 접근할 수 있다. `<html> = document.documentElement`, `<body> = document.body`, `<head> = document.head`
+
+- childNodes 컬렉션은 텍스트 노드를 포함한 모든 자식 노드를 담고 있다. firstChild와 lastChild 프로퍼티를 이용하면 첫 번째, 마지막 자식 노드에 빠르게 접근할 수 있다.
