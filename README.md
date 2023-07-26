@@ -1338,3 +1338,8 @@ alert( +bigint ); // 에러
 - DOM 트리 상단의 노드들은 document가 제공하는 프로퍼티를 사용해 접근할 수 있다. `<html> = document.documentElement`, `<body> = document.body`, `<head> = document.head`
 
 - childNodes 컬렉션은 텍스트 노드를 포함한 모든 자식 노드를 담고 있다. firstChild와 lastChild 프로퍼티를 이용하면 첫 번째, 마지막 자식 노드에 빠르게 접근할 수 있다.
+
+- 요소 노드에만 적용: children 프로퍼티는 해당 요소의 자식 노드 중 요소 노드만 가리킨다.
+firstElementChild와 lastElementChild 프로퍼티는 각각 첫 번째 자식 요소 노드와 마지막 자식 요소 노드를 가킨다.
+previousElementSibling과 nextElementSibling은 형제 요소 노드를 가리킨다.
+parentElement 는 부모 요소 노드를 가리킨다.
