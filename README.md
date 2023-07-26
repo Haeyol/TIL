@@ -1343,3 +1343,29 @@ alert( +bigint ); // 에러
 firstElementChild와 lastElementChild 프로퍼티는 각각 첫 번째 자식 요소 노드와 마지막 자식 요소 노드를 가킨다.
 previousElementSibling과 nextElementSibling은 형제 요소 노드를 가리킨다.
 parentElement 는 부모 요소 노드를 가리킨다.
+
+
+# 07/26
+
+## 요소 검색
+
+- 요소에 id 속성이 있으면 위치에 상관없이 메서드 `document.getElementById(id)`를 이용해 접근할 수 있다.
+
+- `elem.querySelectorAll(css)` 메서드는 elem의 자식 요소 중 주어진 CSS 선택자에 대응하는 요소 모두를 반환한다.
+```
+// 아래 예시는 마지막 <li>요소 모두를 반환
+ let elements = document.querySelectorAll('ul > li:last-child');
+```
+- `elem.querySelector(css)`는 주어진 CSS 선택자에 대응하는 요소 중 첫 번째 요소를 반환한다.
+
+## 주요 노드 프로퍼티
+
+- `nodeType` 프로퍼티는 DOM 노드의 '타입’을 알아내고자 할 때 쓰이는 구식 프로퍼티이다. 모던 자바스크립트에선 노드의 타입을 instanceof나 클래스 기반의 테스트를 이용해 확인한다.
+
+- `nodeName`이나 `tagName` 프로퍼티를 사용하면 DOM 노드의 태그 이름을 알아낼 수 있다.
+
+- `innerHTML` 프로퍼티를 사용하면 요소 안의 HTML을 문자열 형태로 받아올 수 있고 요소 안 HTML을 수정하는 것도 가능하다. innerHTML은 페이지를 수정하는 데 쓰이는 강력한 방법 중 하나이다.
+
+- innerHTML 프로퍼티는 요소 노드에만 사용할 수 있기 때문에 텍스트 노드 같은 다른 타입의 노드에는 innerHTML과 유사한 역할을 해주는 프로퍼티인 `nodeValue`와 `data`를 사용해야한다.
+
+- textContent를 사용하면 요소 내의 텍스트에 접근할 수 있다
