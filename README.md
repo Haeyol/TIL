@@ -1369,3 +1369,33 @@ parentElement 는 부모 요소 노드를 가리킨다.
 - innerHTML 프로퍼티는 요소 노드에만 사용할 수 있기 때문에 텍스트 노드 같은 다른 타입의 노드에는 innerHTML과 유사한 역할을 해주는 프로퍼티인 `nodeValue`와 `data`를 사용해야한다.
 
 - textContent를 사용하면 요소 내의 텍스트에 접근할 수 있다
+
+
+# 07/27
+
+## 클래스
+
+- className – 클래스 전체를 문자열 형태로 반환해주는 프로퍼티로 클래스 전체를 관리할 때 유용.
+classList – 클래스 하나를 관리할 수 있게 해주는 메서드.
+
+- style 프로퍼티 – 카멜 표기법을 이용해 변경한 스타일이 있는 객체로, 이 객체를 조작하는 것은 "style" 속성과 대응하는 개별 프로퍼티를 조작하는 것과 같다.
+
+
+## 요소 사이즈
+
+- offsetLeft와 offsetTop 프로퍼티는 offsetParent를 기준으로 각각 요소가 오른쪽으로, 아래쪽으로 얼마나 떨어져 있는지를 나타낸다.
+
+- offsetWidth와 offsetHeight: 두 프로퍼티는 각각 요소 '가장 바깥 부분(outer)'이 차지하는 너비와 높이 정보를 제공한다.
+
+- clientTop과 clientLeft를 사용하면 테두리(border) 두께를 측정할 수 있다. 그런데 사실 정확히 일치하지 않다
+
+- clientWidth와 clientHeight 프로퍼티는 테두리 안 영역의 사이즈 정보를 제공
+
+- scrollWidth와 scrollHeight 프로퍼티는 clientWidth와 clientHeight 유사한데, 스크롤바에 의해 감춰진 영역도 포함한다.
+
+- scrollLeft와 scrollTop은 가로 스크롤이 오른쪽, 세로 스크롤이 아래로 움직임에 따라 가려진 영역의 너비와 높이를 나타낸다.
+
+
+## 브라우저 창의 너비와 높이
+
+- 창이 차지하는 너비와 높이를 알려면 document.documentElement의 clientWidth와 clientHeight를 사용하면 된다.
