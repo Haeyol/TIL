@@ -1399,3 +1399,12 @@ classList – 클래스 하나를 관리할 수 있게 해주는 메서드.
 ## 브라우저 창의 너비와 높이
 
 - 창이 차지하는 너비와 높이를 알려면 document.documentElement의 clientWidth와 clientHeight를 사용하면 된다.
+
+## 좌표
+
+- 창 기준 – position:fixed와 유사하게 창(window) 맨 위 왼쪽 모서리를 기준으로 좌표를 계산.  이 좌표를 clientX/clientY로 표시.
+
+
+- 문서 기준 – 문서(document) 최상단(root)에서 position:absolute를 사용하는 것과 비슷하게 문서 맨 위 왼쪽 모서리를 기준으로 좌표를 계산.  좌표는 pageX/pageY로 표시
+
+- getBoundingClientRect로 요소 좌표를 얻을 수 있다.
