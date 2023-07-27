@@ -1323,3 +1323,49 @@ alert( +bigint ); // 에러
 ## 커링 (Currying) 
 
 - 커링은 f(a, b, c)처럼 단일 호출로 처리하는 함수를 f(a)(b)(c)와 같이 각각의 인수가 호출 가능한 프로세스로 호출된 후 병합되도록 변환하는 것.
+
+
+# 07/25
+
+## DOM 트리
+
+- DOM은 HTML을 태그 트리 구조로 표현한다. 모든 HTML 태그는 객체이다. 태그 하나가 감싸고 있는 ‘자식’ 태그는 중첩 태그(nested tag)라고 부르고 태그 내의 문자(text) 역시 객체이다. 즉 트리에 있는 노드는 모두 객체이다.
+
+- 기형적인 HTML을 만나면 브라우저는 DOM 생성과정에서 HTML을 자동으로 교정한다. 주석도 노드가 된다. HTML 내의 모든 것은 DOM을 구성한다.
+
+- DOM에 수행하는 모든 연산은 document 객체에서 시작한다. document 객체는 DOM에 접근하기 위한 '진입점’으로 진입점을 통과하면 어떤 노드에도 접근할 수 있다.
+
+- DOM 트리 상단의 노드들은 document가 제공하는 프로퍼티를 사용해 접근할 수 있다. `<html> = document.documentElement`, `<body> = document.body`, `<head> = document.head`
+
+- childNodes 컬렉션은 텍스트 노드를 포함한 모든 자식 노드를 담고 있다. firstChild와 lastChild 프로퍼티를 이용하면 첫 번째, 마지막 자식 노드에 빠르게 접근할 수 있다.
+
+- 요소 노드에만 적용: children 프로퍼티는 해당 요소의 자식 노드 중 요소 노드만 가리킨다.
+firstElementChild와 lastElementChild 프로퍼티는 각각 첫 번째 자식 요소 노드와 마지막 자식 요소 노드를 가킨다.
+previousElementSibling과 nextElementSibling은 형제 요소 노드를 가리킨다.
+parentElement 는 부모 요소 노드를 가리킨다.
+
+
+# 07/26
+
+## 요소 검색
+
+- 요소에 id 속성이 있으면 위치에 상관없이 메서드 `document.getElementById(id)`를 이용해 접근할 수 있다.
+
+- `elem.querySelectorAll(css)` 메서드는 elem의 자식 요소 중 주어진 CSS 선택자에 대응하는 요소 모두를 반환한다.
+```
+// 아래 예시는 마지막 <li>요소 모두를 반환
+ let elements = document.querySelectorAll('ul > li:last-child');
+```
+- `elem.querySelector(css)`는 주어진 CSS 선택자에 대응하는 요소 중 첫 번째 요소를 반환한다.
+
+## 주요 노드 프로퍼티
+
+- `nodeType` 프로퍼티는 DOM 노드의 '타입’을 알아내고자 할 때 쓰이는 구식 프로퍼티이다. 모던 자바스크립트에선 노드의 타입을 instanceof나 클래스 기반의 테스트를 이용해 확인한다.
+
+- `nodeName`이나 `tagName` 프로퍼티를 사용하면 DOM 노드의 태그 이름을 알아낼 수 있다.
+
+- `innerHTML` 프로퍼티를 사용하면 요소 안의 HTML을 문자열 형태로 받아올 수 있고 요소 안 HTML을 수정하는 것도 가능하다. innerHTML은 페이지를 수정하는 데 쓰이는 강력한 방법 중 하나이다.
+
+- innerHTML 프로퍼티는 요소 노드에만 사용할 수 있기 때문에 텍스트 노드 같은 다른 타입의 노드에는 innerHTML과 유사한 역할을 해주는 프로퍼티인 `nodeValue`와 `data`를 사용해야한다.
+
+- textContent를 사용하면 요소 내의 텍스트에 접근할 수 있다
