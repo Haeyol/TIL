@@ -1408,3 +1408,114 @@ classList – 클래스 하나를 관리할 수 있게 해주는 메서드.
 - 문서 기준 – 문서(document) 최상단(root)에서 position:absolute를 사용하는 것과 비슷하게 문서 맨 위 왼쪽 모서리를 기준으로 좌표를 계산.  좌표는 pageX/pageY로 표시
 
 - getBoundingClientRect로 요소 좌표를 얻을 수 있다.
+
+
+# 07/28
+
+## 브라우저 이벤트
+
+- 이벤트(event) 는 무언가 일어났다는 신호이고 모든 DOM 노드는 이런 신호를 만든다. (※ 이벤트는 DOM에만 한정되진 않음.)
+
+## 마우스 이벤트
+
+- `click` – 요소 위에서 마우스 왼쪽 버튼을 눌렀을 때(터치스크린이 있는 장치에선 탭 했을 때) 발생.
+- `contextmenu` – 요소 위에서 마우스 오른쪽 버튼을 눌렀을 때 발생.
+- `mouseover`와 `mouseout` – 마우스 커서를 요소 위로 움직였을 때, 커서가 요소 밖으로 움직였을 때 발생.
+- `mousedown`과 `mouseup` – 요소 위에서 마우스 왼쪽 버튼을 누르고 있을 때, 마우스 버튼을 뗄 때 발생.
+- `mousemove` – 마우스를 움직일 때 발생.
+
+
+## 폼 요소 이벤트
+
+- `submit` – 사용자가 <form>을 제출할 때 발생.
+- `focus` – 사용자가 <input>과 같은 요소에 포커스 할 때 발생.
+
+## 키보드 이벤트
+
+- `keydown`과 `keyup` – 사용자가 키보드 버튼을 누르거나 뗄 때 발생.
+
+## 문서 이벤트
+
+- `DOMContentLoaded` – HTML이 전부 로드 및 처리되어 DOM 생성이 완료되었을 때 발생.
+
+## CSS 이벤트
+
+- `transitionend` – CSS 애니메이션이 종료되었을 때 발생.
+
+## 이벤트 핸들러
+
+- 이벤트에 반응하려면 이벤트가 발생했을 때 실행되는 함수인 핸들러(handler) 를 할당해야 한다. 핸들러는 사용자의 행동에 어떻게 반응할지를 자바스크립트 코드로 표현한 것이다.
+
+
+## HTML 속성
+
+- HTML 안의 on<event> 속성에 핸들러를 할당할 수 있다.
+```
+// 예시
+<input value="클릭해 주세요." onclick="alert('클릭!')" type="button">
+// 버튼을 클릭하면 onclick 안의 코드가 실행
+```
+
+## DOM 프로퍼티
+
+- DOM 프로퍼티 on<event>을 사용해도 핸들러를 할당할 수 있다. (`elem.onclick`)
+```
+// 예시
+<input id="elem" type="button" value="클릭해 주세요.">
+<script>
+//  elem.ONCLICK은 안된다.
+  elem.onclick = function() {
+    alert('감사합니다.');
+  };
+</script>
+// 위의 예시와 동일한 결과
+```
+onclick 프로퍼티는 단 하나밖에 없기 때문에, 복수의 이벤트 핸들러를 할당할 수 없다. 여러번쓰면 마지막것이 기존 작성된 핸들러를 덮어쓴다.
+
+- 핸들러 내부에 쓰인 this의 값은 핸들러가 할당된 요소이다.
+```
+// 아래 예시의 this는 button이므로 버튼을 클릭하면 버튼 안의 콘텐츠(클릭해 주세요.)가 얼럿창에 출력됨.
+<button onclick="alert(this.innerHTML)">클릭해 주세요.</button>
+```
+
+- setAttribute로 핸들러를 할당하면 동작하지 않습니다.
+
+- 핸들어에 함수를 할당할시 함수 호출이 아닌 포인터만 넘겨줘야한다.
+```
+// 올바른 방법
+button.onclick = sayThanks;
+
+// 틀린 방법
+button.onclick = sayThanks();
+```
+
+## addEventListener
+
+- 하나의 이벤트에 복수의 핸들러를 할당할 수 없다는 문제로 인해 핸들러를 여러 개 할당할 수 있도록 나온 메서드.
+
+- 문법
+`element.addEventListener(event, handler, [options]);`
+event: 이벤트 이름(예: "click")
+handler: 핸들러 함수
+options: 아래 프로퍼티를 갖는 객체
+
+- 핸들러 삭제는 removeEventListener로 한다. 핸들러를 삭제하려면 핸들러 할당 시 사용한 함수를 그대로 전달해주어야 한다
+
+
+## 이벤트 객체
+
+- 이벤트가 발생하면 브라우저는 *이벤트 객체(event object)*라는 것을 만들고 여기에 이벤트에 관한 상세한 정보를 넣은 다음, 핸들러에 인수 형태로 전달한다.
+
+```
+elem.onclick = function(event) {
+    // 이벤트 타입과 요소, 클릭 이벤트가 발생한 좌표를 보여줌
+    alert(event.type + " 이벤트가 " + event.currentTarget + "에서 발생했습니다.");
+    alert("이벤트가 발생한 곳의 좌표는 " + event.clientX + ":" + event.clientY +"입니다.");
+  };
+```
+event.type: 이벤트 타입
+event.currentTarget: 이벤트를 처리하는 요소. 화살표 함수를 사용해 핸들러를 만들거나 다른 곳에 바인딩하지 않은 경우엔 this가 가리키는 값과 같음.
+event.clientX / event.clientY: 포인터 관련 이벤트에서, 커서의 상대 좌표(모니터 기준 좌표가 아닌, 브라우저 화면 기준 좌표)
+
+
+- addEventListener를 사용하면 함수뿐만 아니라 객체를 이벤트 핸들러로 할당할 수 있다.
