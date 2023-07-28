@@ -1513,9 +1513,9 @@ elem.onclick = function(event) {
     alert("이벤트가 발생한 곳의 좌표는 " + event.clientX + ":" + event.clientY +"입니다.");
   };
 ```
-event.type: 이벤트 타입
-event.currentTarget: 이벤트를 처리하는 요소. 화살표 함수를 사용해 핸들러를 만들거나 다른 곳에 바인딩하지 않은 경우엔 this가 가리키는 값과 같음.
-event.clientX / event.clientY: 포인터 관련 이벤트에서, 커서의 상대 좌표(모니터 기준 좌표가 아닌, 브라우저 화면 기준 좌표)
+- event.type: 이벤트 타입
+- event.currentTarget: 이벤트를 처리하는 요소. 화살표 함수를 사용해 핸들러를 만들거나 다른 곳에 바인딩하지 않은 경우엔 this가 가리키는 값과 같음.
+- event.clientX / event.clientY: 포인터 관련 이벤트에서, 커서의 상대 좌표(모니터 기준 좌표가 아닌, 브라우저 화면 기준 좌표)
 
 
 - addEventListener를 사용하면 함수뿐만 아니라 객체를 이벤트 핸들러로 할당할 수 있다.
