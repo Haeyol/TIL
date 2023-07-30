@@ -1519,3 +1519,49 @@ elem.onclick = function(event) {
 
 
 - addEventListener를 사용하면 함수뿐만 아니라 객체를 이벤트 핸들러로 할당할 수 있다.
+
+
+# 07/29
+
+## 버블링
+
+- 한 요소에 이벤트가 발생하면, 이 요소에 할당된 핸들러가 동작하고, 이어서 부모 요소의 핸들러가 동작한다. 가장 최상단의 조상 요소를 만날 때까지 이 과정이 반복되면서 요소 각각에 할당된 핸들러가 동작한다.
+
+```
+<form onclick="alert('form')">FORM
+  <div onclick="alert('div')">DIV
+    <p onclick="alert('p')">P</p>
+  </div>
+</form>
+
+// p → div → form 순서로 3개의 얼럿 창이 뜬다.
+```
+가장 안쪽의 <p>를 클릭하면 순서대로 다음과 같은 일이 벌어집니다.
+
+1. <p>에 할당된 onclick 핸들러가 동작.
+2. 바깥의 <div>에 할당된 핸들러가 동작.
+3. 그 바깥의 <form>에 할당된 핸들러가 동작.
+4. document 객체를 만날 때까지, 각 요소에 할당된 onclick 핸들러가 동작.
+
+
+## event.target
+
+- 부모 요소의 핸들러는 이벤트가 정확히 어디서 발생했는지 등에 대한 자세한 정보를 얻을 수 있다. 이벤트가 발생한 가장 안쪽의 요소는 타깃(target) 요소라고 불리고, `event.target`을 사용해 접근할 수 있다.
+
+- `event.target`과 `this`(=`event.currentTarget`)의 차이
+	- event.target은 실제 이벤트가 시작된 ‘타깃’ 요소로 버블링이 진행되어도 변하지 않음.
+	- this는 ‘현재’ 요소로, 현재 실행 중인 핸들러가 할당된 요소를 참조.
+
+- 위의 예시에서 this는 <form>요소이고, event.target은 폼 안쪽에 실제 클릭한 요소이다.
+
+- event.stopPropagation()를 사용하면 버블링을 중단할 수 있다.
+```
+<body onclick="alert(`버블링은 여기까지 도달하지 못합니다.`)">
+  <button onclick="event.stopPropagation()">클릭해 주세요.</button>
+</body>
+```
+
+
+## 캡처링
+
+- 이벤트가 최상위 조상에서 시작해 아래로 전파되는 단계. 캡처링 단계를 이용해야 하는 경우는 흔치 않기 때문에, 캡처링에 관한 코드를 발견하는 일은 거의 없다.
