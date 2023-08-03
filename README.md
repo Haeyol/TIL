@@ -1565,3 +1565,71 @@ elem.onclick = function(event) {
 ## 캡처링
 
 - 이벤트가 최상위 조상에서 시작해 아래로 전파되는 단계. 캡처링 단계를 이용해야 하는 경우는 흔치 않기 때문에, 캡처링에 관한 코드를 발견하는 일은 거의 없다.
+
+# 07/30
+
+## 이벤트 위임
+
+- 이벤트 위임을 사용하면 요소마다 핸들러를 할당하지 않고, 요소의 공통 조상에 이벤트 핸들러를 단 하나만 할당해도 여러 요소를 한꺼번에 다룰 수 있다. 공통 조상에 할당한 핸들러에서 event.target을 이용하면 실제 어디서 이벤트가 발생했는지 알 수 있어 이를 이용해 이벤트를 핸들링한다.
+
+
+## 브라우저 기본 동작
+
+- 브라우저 기본 동작을 취소할 수 있는 방법
+```
+<a href="/" onclick="return false">이곳</a>
+이나
+<a href="/" onclick="event.preventDefault()">이곳을</a> 클릭해주세요.
+```
+-  event 객체에 구현된 event.preventDefault() 메서드를 사용한다. 또는 핸들러가 addEventListener가 아닌 on<event>를 사용해 할당되었다면 false를 반환하게 해 기본 동작을 막을 수도 있다.
+
+
+- `mousedown` – 마우스가 움직인 곳에서 선택을 시작.
+- `<input type="checkbox">`를 click – input을 선택/선택해제 한다.
+- `submit` – 폼 안에서 <input type="submit">을 클릭하거나 Enter를 누르면 이 이벤트가 발생하고, 브라우저는 폼을 서버로 전송한다.
+- `keydown` – 키를 누르면 텍스트 박스에 글자를 추가하거나 그 외의 다른 동작을 수행한다.
+- `contextmenu` – 마우스 오른쪽 버튼을 클릭하면 발생하는 이벤트로, 브라우저 컨텍스트 메뉴를 보여준다.
+
+
+## 커스텀 이벤트
+
+- Event 객체는 다음과 같이 생성한다.
+ `let event = new Event(type[, options]);`
+- type – 이벤트 타입을 나타내는 문자열로 "click"같은 내장 이벤트, "my-event" 같은 커스텀 이벤트가 올 수도 있다.
+
+- 이벤트 객체를 생성한 다음엔 `elem.dispatchEvent(event)`를 호출해 요소에 있는 이벤트를 반드시 '실행’시켜줘야 한다.
+
+- MouseEvent, KeyboardEvent 같은 네이티브 이벤트 클래스의 생성자들은 이벤트 특유의 프로퍼티를 받는다. (마우스 이벤트의 clientX가 대표적인 예)
+
+
+# 08/03
+
+## 마우스 이벤트
+
+- mousedown·mouseup: 요소 위에서 마우스 왼쪽 버튼을 누를 때, 마우스 버튼 누르고 있다가 뗄 때 발생.
+
+- mouseover·mouseout: 마우스 커서가 요소 바깥에 있다가 요소 안으로 움직일 때, 커서가 요소 위에 있다가 요소 밖으로 움직일 때 발생.
+
+- mousemove: 마우스를 움직일 때 발생.
+
+- click: 마우스 왼쪽 버튼을 사용해 동일한 요소 위에서 mousedown 이벤트와 mouseup 이벤트를 연달아 발생시킬 때 실행됨.
+
+- dblclick: 동일한 요소 위에서 마우스 왼쪽 버튼을 빠르게 클릭할 때 발생. 요즘엔 잘 쓰이지 않음.
+
+- contextmenu: 마우스 오른쪽 버튼을 눌렀을 때 발생.
+
+-  click과 contextmenu 이벤트를 다룰 땐 보통 button 프로퍼티를 사용하지 않는다.
+
+## shift, alt, ctrl, meta 프로퍼티
+
+- 마우스 이벤트는 이벤트가 발생할 때 함께 누른 보조키가 무엇인지를 알려주는 프로퍼티. 마우스 이벤트가 발생하는 도중에 해당 키가 함께 눌러졌다면 프로퍼티 값은 true가 된다.
+
+- shiftKey: Shift 키 / altKey: Alt (MacOS에선 Opt 키) / ctrlKey: Ctrl 키 / metaKey: MacOS에서 Cmd 키
+
+
+## clientX, clientY와 pageX, pageY
+
+- 마우스 이벤트는 두 종류의 좌표 정보를 지원한다.
+
+- 클라이언트 좌표: clientX와 clientY
+- 페이지 좌표: pageX와 pageY
