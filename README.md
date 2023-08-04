@@ -1633,3 +1633,40 @@ elem.onclick = function(event) {
 
 - 클라이언트 좌표: clientX와 clientY
 - 페이지 좌표: pageX와 pageY
+
+
+
+# 08/04
+
+
+## 드래그 앤 드롭과 마우스 이벤트
+
+- 드래그 앤 드롭의 기본 알고리즘
+
+1. mousedown에서는 움직임이 필요한 요소를 준비한다.이때 기존 요소의 복사본을 만들거나, 해당 요소에 클래스를 추가하는 등 원하는 형태로 작업할 수 있다.
+2. 이후 mousemove에서 position:absolute의 left∙top을 변경한다.
+3. mouseup에서는 드래그 앤 드롭 완료와 관련된 모든 작업을 수행한다.
+
+- 이벤트 흐름: `ball.mousedown` → `document.mousemove` → `ball.mouseup`(ondragstart를 취소해야함)
+
+- 드래그 시작 시 요소를 기준으로 포인터의 초기 이동을 기억하고 (shiftX∙shiftY) 드래그하는 동안 유지한다. `document.elementFromPoint`를 사용해 포인터 아래의 드롭할 수 있는 요소를 감지한다.
+
+
+## 폼 프로퍼티와 메서드
+
+- 폼은 특수한 컬렉션인 document.forms의 구성원으로 `document.forms`는 이름과 순서가 있는 '기명 컬렉션(named collection)'이다. 개발자는 이 이름이나 순서를 사용해 문서 내의 폼에 접근할 수 있다.
+
+- 폼 요소는 form.elements[name/index] 또는 form[name/index]로 접근한다. 
+
+- 각 요소의 값은 `input.value`, `textarea.value`, `select.value` 등으로 접근할 수 있다. 체크박스와 라디오 버튼에서는 `input.checked`를 사용할 수 있다.
+
+
+## focus, blur 이벤트
+
+- focus 이벤트는 요소가 포커스를 받을 때, blur 이벤트는 포커스를 잃을 때 발생
+
+- `elem.focus()`와 `elem.blur()` 메서드를 사용하면 요소에 포커스를 줄 수도 있고 제거할 수도 있다.
+
+-  <div>, <span>, <table>같이 무언가를 표시하는 용도로 사용하는 요소들은 포커싱을 지원하지 않는다. 그럼에도 불구하고 포커스를 하고 싶다면 tabindex HTML 속성을 사용하면 된다. tabindex 속성이 있는 요소는 종류와 상관없이 포커스가 가능하다.
+
+- focus와 blur 이벤트는 버블링 되지 않으나 캡처링이나 focusin, focusout을 사용하면 이벤트 위임 효과를 볼 수 있다.
