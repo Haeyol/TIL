@@ -1671,7 +1671,6 @@ elem.onclick = function(event) {
 
 - focus와 blur 이벤트는 버블링 되지 않으나 캡처링이나 focusin, focusout을 사용하면 이벤트 위임 효과를 볼 수 있다.
 
-
 # 08/05
 
 
