@@ -1689,3 +1689,26 @@ elem.onclick = function(event) {
 ## 이벤트: cut, copy, paste
 
 - cut, copy, paste 이벤트는 각각 값을 잘라내기·복사하기·붙여넣기 할 때 발생. input 이벤트와는 달리 세 이벤트는 event.preventDefault()를 사용해 기본 동작을 막을 수 있고 이렇게 하면 아무것도 복사·붙여넣기 할 수 없다.
+
+# 08/06
+
+## submit 이벤트
+
+- `form.submit()`을 호출하면 자바스크립트로 직접 폼을 서버에 전송할 수 있다. form.submit() 메서드가 호출된 다음엔 submit 이벤트는 생성되지 않는다.
+
+
+## HTML 문서의 생명주기
+
+## DOMContentLoaded
+
+- DOMContentLoaded 이벤트는 document 객체에서 발생. 브라우저가 HTML을 전부 읽고 DOM 트리를 완성하는 즉시 발생한다. <script> 안에 있는 스크립트가 처리되고 난 후에 발생함.
+
+
+## window.onload
+
+- window 객체의 load 이벤트는 스타일, 이미지 등의 리소스들이 모두 로드되었을 때 실행된다. load 이벤트는 onload 프로퍼티를 통해서도 사용할 수 있다.
+
+
+## window.onunload
+
+- window 객체의 unload 이벤트는 사용자가 페이지를 떠날 때, 즉 문서를 완전히 닫을 때 실행. unload 이벤트에선 팝업창을 닫는 것과 같은 딜레이가 없는 작업을 수행할 수 있다.
