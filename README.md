@@ -1690,6 +1690,7 @@ elem.onclick = function(event) {
 
 - cut, copy, paste 이벤트는 각각 값을 잘라내기·복사하기·붙여넣기 할 때 발생. input 이벤트와는 달리 세 이벤트는 event.preventDefault()를 사용해 기본 동작을 막을 수 있고 이렇게 하면 아무것도 복사·붙여넣기 할 수 없다.
 
+
 # 08/06
 
 ## submit 이벤트
