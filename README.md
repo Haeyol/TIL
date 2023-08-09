@@ -1669,7 +1669,7 @@ elem.onclick = function(event) {
 
 -  <div>, <span>, <table>같이 무언가를 표시하는 용도로 사용하는 요소들은 포커싱을 지원하지 않는다. 그럼에도 불구하고 포커스를 하고 싶다면 tabindex HTML 속성을 사용하면 된다. tabindex 속성이 있는 요소는 종류와 상관없이 포커스가 가능하다.
 
-- focus와 blur 이벤트는 버블링 되지 않으나 캡처링이나 focusin, focusout을 사용하면 이벤트 위임 효과를 볼 수 있다.
+- `focus`와 `blur` 이벤트는 버블링 되지 않으나 캡처링이나 focusin, focusout을 사용하면 이벤트 위임 효과를 볼 수 있다.
 
 
 # 08/05
