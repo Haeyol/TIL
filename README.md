@@ -1140,7 +1140,7 @@ let promise = new Promise(function(resolve, reject) {
 - resolve(value) — 일이 성공적으로 끝난 경우 그 결과를 나타내는 value와 함께 호출
 reject(error) — 에러 발생 시 에러 객체를 나타내는 error와 함께 호출
 
-## then
+## `then`
 - 프라미스에서 가장 중요하고 기본이 되는 메서드
 ```
 promise.then(
